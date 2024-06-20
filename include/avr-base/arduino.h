@@ -18,40 +18,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include "include/avr-base/SPI.h"
+#ifndef _ARDUINO_BOARD_H_
+#define _ARDUINO_BOARD_H_
 
-// Units are in Mhz
-static uint8_t SPI_TRANSFER_RATE = 0u;
+#include "avr_registers.h"
 
-void init_spi(uint16_t osc_freq)
-{
-	//
-	// Config SPI for data transfer
-	//
-	SPCR = 0x0; // Clear
-	SET_BIT(SPCR, 6); // Enable SPI
-	SET_BIT(SPCR, 4); // Act as the Master
-	
-	// SPR0 and SPR1 (register 0 and 1) both are set to 0,
-	// so we can use the maximum transfer rate. 
-	// The equation for the transfer rate is the following: 
-	SPI_TRANSFER_RATE = osc_freq / 4u;
-}
+// Information on Arduino-AVR pin to registers mapping
+// https://docs.arduino.cc/retired/hacking/software/PortManipulation/
 
-void close_spi()
-{
-	SPCR = 0x0; // Clear
-}
+//
+// Testing Utilities
+//
+void flash_led_util(uint8_t n_times);
 
-uint8_t avr_spi_bidrec_transfer(uint8_t data)
-{
-	SPDR = data; // MOSI
-	
-	// copy bit and shift until MSB is set, then we end. (little-endian)
-	while (!(SPSR & 0x80));
-
-	return SPDR; // MISO
-}
-
-
-
+#endif

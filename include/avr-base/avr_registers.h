@@ -48,5 +48,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 #define SPCR	*((volatile uint8_t*)0x4C)	// Control register
 #define SPDR 	*((volatile uint8_t*)0x4E)	// Data register (MOSI)
+#define SPSR	*((volatile uint8_t*)0x4D)	// Status register
+
 
 #endif
