@@ -26,6 +26,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 // Utils
 //
+#define ENABLE_BIT 	1u
+#define DISABLE_BIT 0u
+
 #define SET_BIT(REG, N) REG |= (0x1 << (N + 1u))
 #define CLEAR_BIT(REG, N) REG &= ~(0x1 << (N + 1u))
 

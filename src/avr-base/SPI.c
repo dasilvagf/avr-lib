@@ -25,13 +25,16 @@ static uint8_t SPI_TRANSFER_RATE = 0u;
 
 void init_spi(uint16_t osc_freq)
 {
+	spi_init_register* spcr = (spi_init_register*)&SPCR;
+
 	//
 	// Config SPI for data transfer
 	//
-	SPCR = 0x0; // Clear
-	SET_BIT(SPCR, 6); // Enable SPI
-	SET_BIT(SPCR, 4); // Act as the Master
-	
+	SPCR = 0x0; // Clear register
+
+	spcr->enable_spi 	= ENABLE_BIT;
+	spcr->act_as_master = ENABLE_BIT;
+
 	// SPR0 and SPR1 (register 0 and 1) both are set to 0,
 	// so we can use the maximum transfer rate. 
 	// The equation for the transfer rate is the following: 
@@ -45,10 +48,14 @@ void close_spi()
 
 uint8_t avr_spi_bidrec_transfer(uint8_t data)
 {
-	SPDR = data; // MOSI
+	spi_status_register* spsr = (spi_status_register*)&SPSR;
+	spi_data_register*   spdr = (spi_data_register*)&SPDR;
+	
+	// start writing
+	spdr->data = data; // MOSI
 	
 	// copy bit and shift until MSB is set, then we end. (little-endian)
-	while (!(SPSR & 0x80));
+	while (!(spsr->spi_interput_flag));
 
 	return SPDR; // MISO
 }
