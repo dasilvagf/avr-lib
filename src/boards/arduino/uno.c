@@ -1,8 +1,8 @@
 /*
-			8bit-ray caster
-Ray-Caster written in C99 for the ATmega328 and the LCD TFT ST7735.
+			AVR LIB
+Exactly what the name implies, nothing less, nothing more. Just for fun! :)
 
-Copyright (C) 2023  Gabriel Felipe S. da Silva
+Copyright (C) 2026  Gabriel Felipe S. da Silva
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,14 +18,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include "include/avr-base/arduino.h"
-
-//
-// Testing Utilities
-//
-void flash_led_util(uint8_t n_times)
-{
-	
-}
+#include "include/boards/arduino/uno.h"
 
 

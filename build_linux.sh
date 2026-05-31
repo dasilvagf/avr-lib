@@ -2,8 +2,8 @@
 rm -rf build
 mkdir build
 
-avr-gcc -I. -Os -DF_CPU=8000000 -mmcu=attiny85 -c src/avr-base/SPI.c -o build/spi.o
-avr-gcc -I. -Os -DF_CPU=8000000 -mmcu=attiny85 -c src/avr-base/arduino.c -o build/arduino.o
+avr-gcc -I. -Os -DF_CPU=16000000 -mmcu=atmega328p -c src/avr-base/SPI.c -o build/spi.o
+avr-gcc -I. -Os -DF_CPU=16000000 -mmcu=atmega328p -c src/boards/arduino/arduino.c -o build/arduino.o
 
 # Create lib
 rm -rf bin

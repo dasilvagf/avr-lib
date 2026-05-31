@@ -2,7 +2,7 @@
 			AVR LIB
 Exactly what the name implies, nothing less, nothing more. Just for fun! :)
 
-Copyright (C) 2023-2024  Gabriel Felipe S. da Silva
+Copyright (C) 2026  Gabriel Felipe S. da Silva
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,17 +18,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef _ARDUINO_BOARD_H_
-#define _ARDUINO_BOARD_H_
 
-#include "avr_registers.h"
+#ifndef _ARDUINO_UNO_H_
+#define _ARDUINO_UNO_H_
 
-// Information on Arduino-AVR pin to registers mapping
-// https://docs.arduino.cc/retired/hacking/software/PortManipulation/
-
-//
-// Testing Utilities
-//
-void flash_led_util(uint8_t n_times);
+#include "../../avr-base/avr_base.h"
 
 #endif
