@@ -29,13 +29,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 void flash_led(enum arduino_board_type board_type, uint8_t n_times)
 {
     // Map ports from the avr micro-controler into the arduino board
-    io_data_direction_register* io_ports = (io_data_direction_register*)&DDRB;
+    volatile io_data_direction_register* io_ports = (volatile io_data_direction_register*)&DDRB;
 
     // Most of the boards use pin5 for LED, so we set it as output
     io_ports->pin_5 = 1u;
 
     // Where we read/write from register according to DDRB direction (write/read)
-    io_port_register* io_data_port = (io_port_register*)&PORTB;
+    volatile io_port_register* io_data_port = (volatile io_port_register*)&PORTB;
 
     for (uint8_t n = 0u; n < n_times; ++n){
         io_data_port->pin_5 = 1u; // turn on LED

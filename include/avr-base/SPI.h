@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #define _AVR_SPI_H_
 
 #include "avr_registers.h"
+#include "oscillator_frequencies.h"
 
 //
 //		Initialization/Shutdown
@@ -33,6 +34,17 @@ typedef struct spi_init_register_t
 	// Plase, refer to the transfer rate speed table to see the meaning of the bitmaks and 
 	// how to multiplex them to index into it.
 	// https://www.coursehero.com/file/p23h12k0/Table-19-5-Relationship-Between-SCK-and-the-Oscillator-Frequency-SPI2X-SPR1-SPR0/
+	
+	// SPI master frequency config (how faster the master send information)
+	// SPI2X	SPR1[1]	SPR1[0]	SCK Frequency
+	// 0		0		0		f_{osc}/4
+	// 0		0		1		f_{osc}/16
+	// 0		1		0		f_{osc}/64
+	// 0		1		1		f_{osc}/128
+	// 1		0		0		f_{osc}/2
+	// 1		0		1		f_{osc}/8
+	// 1		1		0		f_{osc}/32
+	// 1		1		1		f_{osc}/64
 	uint8_t transfer_rate_bitmask_1 : 1; // SPR0(bit0)
 	uint8_t transfer_rate_bitmask_0 : 1; // SPR1(bit1)
 
@@ -44,16 +56,27 @@ typedef struct spi_init_register_t
 	uint8_t enable_spi_interrupt : 1; // SPIE (bit7)
 }spi_init_register;
 
-void avr_spi_init(uint16_t osc_freq);
+void avr_spi_init_master();
+void avr_spi_init_slave();
 void avr_spi_close();
 
 //
 //		SPI Protocol Interface
 //
 
-// 8bit SPIF register
+// 8bit SPSR register
 typedef struct spi_status_register_t
 {
+	// SPI master frequency config (how faster the master send information)
+	// SPI2X	SPR1[1]	SPR1[0]	SCK Frequency
+	// 0		0		0		f_{osc}/4
+	// 0		0		1		f_{osc}/16
+	// 0		1		0		f_{osc}/64
+	// 0		1		1		f_{osc}/128
+	// 1		0		0		f_{osc}/2 
+	// 1		0		1		f_{osc}/8
+	// 1		1		0		f_{osc}/32
+	// 1		1		1		f_{osc}/64
 	uint8_t double_spi_speed : 1; // SPI2X (bit0)
 	
 	// These bits are reserved bits in the ATmega48A/PA/88A/PA/168A/PA/328/P and will always read as zero

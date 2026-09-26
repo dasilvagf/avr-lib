@@ -2,7 +2,7 @@
 			AVR LIB
 Exactly what the name implies, nothing less, nothing more. Just for fun! :)
 
-Copyright (C) 2026  Gabriel Felipe S. da Silva
+Copyright (C) 2023-2026  Gabriel Felipe S. da Silva
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,13 +18,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+#ifndef _AVR_OSCILLATOR_FREQ_H_
+#define _AVR_OSCILLATOR_FREQ_H_
 
-#ifndef _AVR_BASE_H_
-#define _AVR_BASE_H_
-
-#include "avr_registers.h"
-#include "oscillator_frequencies.h"
-#include "io_ports.h"
-#include "SPI.h"
+#ifdef F_CPU
+#define CPU_FREQ F_CPU
+#else
+#define CPU_FREQ 16000000
+#endif
 
 #endif
